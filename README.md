@@ -15,7 +15,15 @@ Go to the project directory
 ```bash
   cd Expense-Tracker-API
 ```
-Edit application.properties file with your Database credentials..
+
+Create Properties file
+
+```bash
+  mkdir -p src/main/resources
+  touch application.properties
+```
+
+- Edit application.properties file with you DB credentials
 
 Start the server
 
