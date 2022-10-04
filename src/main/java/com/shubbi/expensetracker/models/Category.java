@@ -1,6 +1,7 @@
 package com.shubbi.expensetracker.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 
 import javax.persistence.*;
 
@@ -21,9 +22,9 @@ public class Category {
     @Column(name="total_expense")
     private Float totalExpense = 0.0F;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="fk_user_id", referencedColumnName = "id", nullable = false)
-    @JsonIgnoreProperties(value = {"name", "password"})
+    @ManyToOne
+    @JoinColumn(name="fk_user_id", nullable = false)
+    @JsonIncludeProperties(value = {"id", "email"})
     private User user;
 
     public Category() {

@@ -1,30 +1,30 @@
 package com.shubbi.expensetracker.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name="users", uniqueConstraints = {@UniqueConstraint(name = "user_email_unique", columnNames = "email")})
+@Table(name="users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_seq")
-    @SequenceGenerator(name="users_seq", sequenceName = "users_id_seq")
+    @SequenceGenerator(name="users_seq", sequenceName = "users_id_sequence", initialValue = 1, allocationSize = 1)
     @Column(name="id")
     private Integer id;
 
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
+    @Column(columnDefinition = "TEXT")
     private String password;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", targetEntity = Category.class, cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Category> categories;
 

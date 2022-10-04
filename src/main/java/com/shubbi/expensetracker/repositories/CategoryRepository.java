@@ -11,5 +11,5 @@ import java.util.List;
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
     @Query("SELECT c FROM Category c WHERE c.user.id=?1")
-    List<Category> findAllByUserId(Integer id);
+    List<Category> findAllByUserId(Integer userId);
 }
