@@ -1,5 +1,6 @@
 package com.shubbi.expensetracker.controllers;
 
+import com.shubbi.expensetracker.exceptions.EtAuthException;
 import com.shubbi.expensetracker.models.Category;
 import com.shubbi.expensetracker.models.User;
 import com.shubbi.expensetracker.repositories.CategoryRepository;
@@ -15,6 +16,8 @@ public class CategoryController {
 
     private CategoryRepository categoryRepository;
     private UserRepository userRepository;
+
+    private final Integer LOGGED_IN_USER_ID=1;
 
     @Autowired
     public CategoryController(CategoryRepository categoryRepository, UserRepository userRepository){
@@ -32,8 +35,8 @@ public class CategoryController {
 
     @PostMapping("")
     public Category addCategory(@RequestBody Category category){
-        User loggedInUser = userRepository.findById(1).orElseThrow(
-                () -> new RuntimeException("No Logged In User found")
+        User loggedInUser = userRepository.findById(LOGGED_IN_USER_ID).orElseThrow(
+                () -> new EtAuthException("No Logged In User found")
         );
 
         category.setUser(loggedInUser);
