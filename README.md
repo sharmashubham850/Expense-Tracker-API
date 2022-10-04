@@ -1,8 +1,16 @@
 # Expense Tracker API
 
-A Spring Boot REST API for tracking expenses.
+A REST API for tracking expenses with builtin User Authentication.
 
-## Run Locally
+## Tools Used
+- Java11
+- Spring Boot
+- Spring Data JPA
+- Spring Security
+- JWT Authentication
+- PostgreSQL
+
+### Steps to run project locally
 
 Clone the project
 
@@ -25,7 +33,7 @@ Create Properties file
 
 - Edit application.properties file with you DB credentials
 
-Start the server
+Start the server (Default PORT=8080)
 
 ```bash
   ./mvnw spring-boot:run
