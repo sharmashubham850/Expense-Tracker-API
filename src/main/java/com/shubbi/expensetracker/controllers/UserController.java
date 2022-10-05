@@ -2,7 +2,9 @@ package com.shubbi.expensetracker.controllers;
 
 import com.shubbi.expensetracker.exceptions.EtAuthException;
 import com.shubbi.expensetracker.exceptions.UserNotFoundException;
+import com.shubbi.expensetracker.models.Role;
 import com.shubbi.expensetracker.models.User;
+import com.shubbi.expensetracker.repositories.RoleRepository;
 import com.shubbi.expensetracker.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,15 +16,19 @@ import java.util.*;
 public class UserController {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
 
     @Autowired
-    public UserController(UserRepository userRepository){
+    public UserController(UserRepository userRepository, RoleRepository roleRepository){
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     @PostMapping("/register")
     public User registerUser(@RequestBody User user){
+        Role userRole = roleRepository.findByRoleName("user");
+        user.assignRole(userRole);
         User savedUser = userRepository.save(user);
         return savedUser;
     }
