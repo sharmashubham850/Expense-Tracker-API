@@ -38,14 +38,13 @@ public class UserController {
         String email = (String) userMap.get("email");
         String password = (String) userMap.get("password");
 
-        User u = userRepository.validate(email.toLowerCase());
+        User u = userRepository.validate(email.toLowerCase()).orElseThrow(
+                () -> new EtAuthException("No user found with email: "+ email)
+        );
 
-        if (u == null) throw new EtAuthException("No user found with email: "+ email);
         if (!u.getPassword().equals(password)) throw new EtAuthException("Invalid password");
 
-        Map<String, String> map = new HashMap<>();
-        map.put("success", "true");
-        return map;
+        return Map.of("success", "true");
     }
 
     @GetMapping("")
